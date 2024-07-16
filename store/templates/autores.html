@@ -1,0 +1,418 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEAR LIBRARY</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Enlace a CSS personalizado -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles1.css' %}">
+    <!-- Google Fonts - Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000; /* Fondo negro */
+            color: #FFFFFF; /* Texto blanco */
+        }
+        .titulo-autores {
+            max-width: 400px;
+            height: auto;
+        }
+        .card {
+            background-color: #000000; /* Fondo negro de la tarjeta */
+            color: #FFFFFF; /* Texto blanco */
+            border: 1px solid #FFFFFF; /* Borde blanco de 1px */
+            border-radius: 10px; /* Bordes redondeados */
+            height: 100%;
+            max-height: 320px;
+            overflow: hidden;
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+        .card-text {
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        .contact-section {
+            margin-top: 50px;
+            padding: 50px 0;
+        }
+        .contact-section h2 {
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #8B0000; /* Botones rojos */
+            color: #ffffff; /* Texto blanco */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #6a0000; /* Cambio de color al pasar el mouse */
+        }
+        .modal-content {
+            background-color: #000000; /* Fondo negro del modal */
+            color: #FFFFFF; /* Texto blanco en el modal */
+        }
+        .modal-header {
+            border-bottom: none; /* Sin borde en la parte inferior del encabezado */
+        }
+        .btn-close {
+            color: #FFFFFF; /* Color de la cruz de cierre blanca */
+        }
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 20px;
+            }
+            .contact-section {
+                margin-top: 20px;
+            }
+        }
+    </style>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/logos.png' %}" alt="FEAR LIBRARY" class="logo">
+            </a>
+            <!-- Botón de hamburguesa -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Menú de navegación -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://wa.me/"><i class="fab fa-whatsapp fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://facebook.com/"><i class="fab fa-facebook fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="https://instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'autores' %}">Autores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'generos' %}">Géneros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'libros' %}">Libros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+                    </li>
+                </ul>
+                <!-- Botón de búsqueda -->
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col text-center mb-4">
+                <img src="{% static 'img/autoress.png' %}" alt="Autores" class="img-fluid titulo-autores">
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Tarjeta de Stephen King -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/stephen.avif' %}" class="card-img-top" alt="Stephen King">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">Stephen King</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalStephenKing">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal de Stephen King -->
+            <div class="modal fade" id="modalStephenKing" tabindex="-1" aria-labelledby="modalStephenKingLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalStephenKingLabel">Stephen King</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Descripción:</h6>
+                            <p>Stephen King es un reconocido autor de novelas de terror, ciencia ficción y fantasía. Su obra más conocida es "It", una novela que explora el horror psicológico y supernatural en un pequeño pueblo de Maine.</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/itlibro.webp' %}" class="img-fluid mb-3" alt="Stephen King 1">
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/globoit1.png' %}" class="img-fluid mb-3" alt="Stephen King 2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de William Peter Blatty -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/william.webp' %}" class="card-img-top" alt="William Peter Blatty">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">William Peter Blatty</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalWilliamBlatty">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal de William Peter Blatty -->
+            <div class="modal fade" id="modalWilliamBlatty" tabindex="-1" aria-labelledby="modalWilliamBlattyLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalWilliamBlattyLabel">William Peter Blatty</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Descripción:</h6>
+                            <p>William Peter Blatty fue un escritor y cineasta conocido por su novela "El Exorcista", que posteriormente fue adaptada a una exitosa película de terror. Blatty exploró temas de posesión demoníaca y el conflicto entre el bien y el mal en su obra.</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/exorc.jpg' %}" class="img-fluid mb-3" alt="William Peter Blatty 1">
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/manos1.png' %}" class="img-fluid mb-3" alt="William Peter Blatty 2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Neil Gaiman -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/neil.webp' %}" class="card-img-top" alt="Neil Gaiman">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">Neil Gaiman</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNeilGaiman">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal de Neil Gaiman -->
+            <div class="modal fade" id="modalNeilGaiman" tabindex="-1" aria-labelledby="modalNeilGaimanLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalNeilGaimanLabel">Neil Gaiman</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Descripción:</h6>
+                            <p>Neil Gaiman es un autor británico conocido por sus obras en el género de fantasía oscura y literatura gótica. Entre sus obras más destacadas se encuentra "American Gods", una novela que explora mitología y la confrontación de dioses antiguos y modernos en los Estados Unidos.</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/american.jpg' %}" class="img-fluid mb-3" alt="Neil Gaiman 1">
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{% static 'img/gods.png' %}" class="img-fluid mb-3" alt="Neil Gaiman 2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta adicional 1 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/malerman.avif' %}" class="card-img-top" alt="Malerman">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">Josh Malerman</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMalerman">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Modal de malerman -->
+                        <div class="modal fade" id="modalMalerman" tabindex="-1" aria-labelledby=modalMalermanLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalMalermanLabel">Josh Malerman</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Descripción:</h6>
+                                        <p>Autor conocido por su novela "Bird Box", que fue adaptada a una exitosa película de Netflix. Malerman también ha escrito otras obras de terror y suspenso como "Goblin" y "A House at the Bottom of a Lake".</p>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <img src="{% static 'img/goblin.webp' %}" class="img-fluid mb-3" alt="William Peter Blatty 1">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <img src="{% static 'img/hose.webp' %}" class="img-fluid mb-3" alt="William Peter Blatty 2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+
+            <!-- Tarjeta adicional 2 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/sarah.jpg' %}" class="card-img-top" alt="Sarah">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">Sarah Pinborough</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSarah">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+                        <!-- Modal de malerman -->
+                        <div class="modal fade" id="modalSarah" tabindex="-1" aria-labelledby=modalSarahLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalSarahLabel">Sarah Pinborough</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Descripción:</h6>
+                                        <p>Descripción: Escritora británica conocida por sus novelas de suspenso y horror, como "Behind Her Eyes" y "Cross Her Heart". Pinborough combina elementos de thriller psicológico con giros sorprendentes.</p>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <img src="{% static 'img/cross.jpg' %}" class="img-fluid mb-3" alt="Sarah">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <img src="{% static 'img/heart.png' %}" class="img-fluid mb-3" alt="Sarah">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+            
+            <!-- Tarjeta adicional 3 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'img/anne.jpeg' %}" class="card-img-top" alt="Anne">
+                    <div class="card-body">
+                        <h5 class="card-title typewriter">Anne Rice
+                        </h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAnne">Ver Detalle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                            <!-- Modal de malerman -->
+                            <div class="modal fade" id="modalAnne" tabindex="-1" aria-labelledby=modalAnneLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalAnneLabel">Anne Rice</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6>Descripción:</h6>
+                                            <p>Descripción:Conocida por su serie "Crónicas Vampíricas", Anne Rice ha explorado temas de horror y lo sobrenatural en sus obras recientes como "Prince Lestat" y "Blood Communion".</p>
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <img src="{% static 'img/prince.webp' %}" class="img-fluid mb-3" alt="Anne">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img src="{% static 'img/prinnce.png' %}" class="img-fluid mb-3" alt="Anne">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<!-- Sección de contacto -->
+<section id="contact" class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Contáctate con nosotros, respondemos en breve.</h2>
+            </div>
+            <div class="col-md-6">
+                <h2>Contacto</h2>
+                <form method="POST" action="{% url 'contacto_nuevo' %}" id="contactForm" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="nombre" placeholder="Tu Nombre" required>
+                        <div class="invalid-feedback">Por favor, ingresa tu nombre.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Tu Email" required>
+                        <div class="invalid-feedback">Por favor, ingresa una dirección de correo electrónico válida.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="message" name="mensaje" rows="4" placeholder="Tu Mensaje" required></textarea>
+                        <div class="invalid-feedback">Por favor, ingresa tu mensaje.</div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="marketing-permission" name="marketing_permission">
+                        <label class="form-check-label" for="marketing-permission">Doy mi consentimiento para estar en contacto por correo electrónico utilizando la información que he proporcionado en este formulario con fines de noticias, actualizaciones y marketing.</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ENVIAR</button>
+                </form>
+                <p class="mt-3"><a href="#" class="text-white">Política de Privacidad</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pie de página -->
+<footer class="custom-footer text-white text-center p-4">
+    <p class="mb-0">&copy; 2024 FEAR LIBRARY. Todos los derechos reservados.</p>
+</footer>
+
+
+<!-- Enlace a Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Script para manejar el modal -->
+<script>
